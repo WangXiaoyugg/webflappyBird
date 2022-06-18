@@ -1,12 +1,15 @@
 import { ResourcesLoader } from './js/base/ResourcesLoader.js'
+import { Director } from './js/Director.js'
 export class Main {
   constructor() {
-    this.canvas = document.getElementById('game')
+    this.canvas = document.querySelector('#game')
     this.ctx = this.canvas.getContext('2d')
-    this.resourcesLoader = ResourcesLoader.create()
-    this.resourcesLoader.onLoaded((resources) =>
-      this.onResourcesLoadedFirst(resources)
-    )
+    const loader = ResourcesLoader.create()
+    loader.onLoaded((resources) => this.onResourcesLoadedFirst(resources))
+
+    Director.getInstance()
+    Director.getInstance()
+    Director.getInstance()
   }
 
   onResourcesLoadedFirst(resources) {
