@@ -2,6 +2,7 @@ import { DataStore } from './js/base/DataStore.js'
 import { ResourcesLoader } from './js/base/ResourcesLoader.js'
 import { Director } from './js/Director.js'
 import { Background } from './js/runtime/Background.js'
+import { Land } from './js/runtime/Land.js'
 export class Main {
   constructor() {
     this.canvas = document.querySelector('#game')
@@ -18,7 +19,8 @@ export class Main {
   }
 
   init() {
-    this.dataStore.put('background', Background)
+    this.dataStore.put('background', Background).put('land', Land)
+
     Director.getInstance().run()
   }
 }
