@@ -12,6 +12,9 @@ export class DataStore {
   }
 
   put(key, val) {
+    if (typeof val === 'function') {
+      val = new val()
+    }
     this.dataStore.set(key, val)
     return this
   }

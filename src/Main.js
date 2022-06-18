@@ -12,23 +12,13 @@ export class Main {
   }
 
   onResourcesLoadedFirst(resources) {
-    // console.log('resources: ', resources)
     this.dataStore.ctx = this.ctx
     this.dataStore.resources = resources
     this.init()
-
-    // let background = new Background(this.ctx, resources.get('background'))
-    // background.draw()
   }
 
   init() {
-    this.dataStore.put(
-      'background',
-      new Background(
-        this.dataStore.ctx,
-        this.dataStore.resources.get('background')
-      )
-    )
+    this.dataStore.put('background', Background)
     Director.getInstance().run()
   }
 }
