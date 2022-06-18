@@ -1,5 +1,4 @@
 import { ResourcesLoader } from './js/base/ResourcesLoader.js'
-import { Director } from './js/Director.js'
 export class Main {
   constructor() {
     this.canvas = document.querySelector('#game')
@@ -7,9 +6,21 @@ export class Main {
     const loader = ResourcesLoader.create()
     loader.onLoaded((resources) => this.onResourcesLoadedFirst(resources))
 
-    Director.getInstance()
-    Director.getInstance()
-    Director.getInstance()
+    let image = new Image()
+    image.src = './res/background.png'
+    image.onload = () => {
+      this.ctx.drawImage(
+        image,
+        400,
+        300,
+        image.width,
+        image.height,
+        0,
+        300,
+        image.width,
+        image.height
+      )
+    }
   }
 
   onResourcesLoadedFirst(resources) {
