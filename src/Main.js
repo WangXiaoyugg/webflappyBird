@@ -29,7 +29,23 @@ export class Main {
       .put('background', Background)
       .put('land', Land)
       .put('birds', Birds)
+    // 注册事件监听
+    this.registerEvent()
+
     this.director.createPencil()
     this.director.run()
+  }
+
+  registerEvent() {
+    this.canvas.addEventListener('touchstart', (e) => {
+      e.preventDefault()
+      if (this.director.isGameOver) {
+        console.log('重新开始！')
+        this.init()
+      } else {
+        // 执行鸟儿事件
+        this.director.birdsEvent()
+      }
+    })
   }
 }

@@ -25,6 +25,15 @@ export class Director {
     this.dataStore.get('pencils').push(new DownPencil(top))
   }
 
+  birdsEvent() {
+    // 绑定事件，触摸一次，让小鸟往上飞一点
+    for (let i = 0; i <= 2; i++) {
+      this.dataStore.get('birds').y[i] = this.dataStore.get('birds').birdsY[i]
+    }
+    // 重置重力加速度
+    this.dataStore.get('birds').time = 0
+  }
+
   run() {
     if (this.isGameOver) {
       cancelAnimationFrame(this.dataStore.get('timer'))
