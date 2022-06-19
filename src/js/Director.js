@@ -49,6 +49,7 @@ export class Director {
 
       this.dataStore.get('pencils').forEach((pencil) => pencil.draw())
       this.dataStore.get('land').draw()
+      this.dataStore.get('birds').draw()
       const timer = requestAnimationFrame(() => this.run())
       this.dataStore.put('timer', timer)
     }

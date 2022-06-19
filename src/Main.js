@@ -1,6 +1,7 @@
 import { DataStore } from './js/base/DataStore.js'
 import { ResourcesLoader } from './js/base/ResourcesLoader.js'
 import { Director } from './js/Director.js'
+import { Birds } from './js/player/Birds.js'
 import { Background } from './js/runtime/Background.js'
 import { Land } from './js/runtime/Land.js'
 export class Main {
@@ -27,6 +28,7 @@ export class Main {
       .put('pencils', [])
       .put('background', Background)
       .put('land', Land)
+      .put('birds', Birds)
     this.director.createPencil()
     this.director.run()
   }
