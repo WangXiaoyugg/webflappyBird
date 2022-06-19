@@ -27,6 +27,22 @@ export class Director {
 
   run() {
     this.dataStore.get('background').draw()
+    const pencils = this.dataStore.get('pencils')
+
+    // 第一组铅笔移除屏幕左边界
+    if (pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
+      pencils.shift()
+      pencils.shift()
+    }
+
+    // 创建第二组铅笔, 当一组铅笔的 x 坐标 小于 (屏幕-铅笔宽度) 的一半时
+    if (
+      pencils[0].x < (window.innerWidth - pencils[0].width) / 2 &&
+      pencils.length === 2
+    ) {
+      this.createPencil()
+    }
+
     this.dataStore.get('pencils').forEach((pencil) => pencil.draw())
     this.dataStore.get('land').draw()
     const timer = requestAnimationFrame(() => this.run())
