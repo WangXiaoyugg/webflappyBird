@@ -1,1 +1,15 @@
-export class DownPencil {}
+import { Sprite } from '../base/Sprite.js'
+import { Pencil } from './Pencil.js'
+
+export class DownPencil extends Pencil {
+  constructor(top) {
+    const img = Sprite.getImage('pencilDown')
+    super(img, top)
+  }
+
+  draw() {
+    let gap = window.innerHeight / 5
+    this.y = this.top + gap
+    super.draw()
+  }
+}
