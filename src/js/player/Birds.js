@@ -36,6 +36,20 @@ export class Birds extends Sprite {
     }
     // 使用向下取整减速
     this.index = Math.floor(this.count)
+
+    // 模拟重力加速度， (g * t * t)/2
+    // 重力
+    const g = 0.98 / 2.5
+    // 向上的一丢偏移量
+    const offsetTop = 30
+    // 下降的高度
+    const offsetY = (g * this.time * (this.time - offsetTop)) / 2
+    // 更改三只小鸟的y坐标，加上offsetY
+    for (let i = 0; i <= 2; i++) {
+      this.birdsY[i] = this.y[i] + offsetY
+    }
+    this.time++
+
     super.draw(
       this.img,
       this.clippingX[this.index],
