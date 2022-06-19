@@ -9,6 +9,7 @@ export class Main {
     this.ctx = this.canvas.getContext('2d')
     const loader = ResourcesLoader.create()
     this.dataStore = DataStore.getInstance()
+    this.director = Director.getInstance()
     loader.onLoaded((resources) => this.onResourcesLoadedFirst(resources))
   }
 
@@ -19,8 +20,11 @@ export class Main {
   }
 
   init() {
-    this.dataStore.put('background', Background).put('land', Land)
-
-    Director.getInstance().run()
+    this.dataStore
+      .put('pencils', [])
+      .put('background', Background)
+      .put('land', Land)
+    this.director.createPencil()
+    this.director.run()
   }
 }
