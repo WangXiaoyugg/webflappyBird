@@ -33,15 +33,71 @@ export class Director {
     // 重置重力加速度
     this.dataStore.get('birds').time = 0
   }
+
+  // 检测小鸟模型和 铅笔模型是否碰撞
+  static isStrike(bird, pencil) {
+    let isHit = false
+
+    // 反逻辑， 在正常区域内默认未碰撞
+    if (
+      // // 小鸟撞到上半部分水管的下半部分
+      // bird.top > pencil.bottom ||
+      // // 小鸟撞到下半部分水管的上半部分
+      // bird.bottom < pencil.top ||
+      // // 撞到水管的左侧
+      // bird.right > pencil.left ||
+      // // 撞到水管的右侧
+      // bird.left > pencil.right
+
+      bird.top > pencil.bottom ||
+      bird.bottom < pencil.top ||
+      bird.left > pencil.right ||
+      bird.right < pencil.left
+    ) {
+      isHit = true
+    }
+    return !isHit
+  }
+
   // 检测小鸟是否撞击到地板和铅笔
   check() {
     const birds = this.dataStore.get('birds')
     const land = this.dataStore.get('land')
+    const pencils = this.dataStore.get('pencils')
+
+    // 撞到地板了
     if (birds.birdsY[0] + birds.birdsHeight[0] >= land.y) {
       console.log('游戏结束了')
       this.isGameOver = true
       return
     }
+
+    // 撞到水管了
+    // 小鸟边框模型
+    const birdsBorder = {
+      top: birds.y[0],
+      bottom: birds.birdsY[0] + birds.birdsHeight[0],
+      left: birds.birdsX[0],
+      right: birds.birdsX[0] + birds.birdsWidth[0],
+    }
+
+    const length = pencils.length
+    for (let i = 0; i < length; i++) {
+      const pencil = pencils[i]
+      const pencilBorder = {
+        top: pencil.y,
+        bottom: pencil.y + pencil.height,
+        left: pencil.x,
+        right: pencil.x + pencil.width,
+      }
+
+      if (Director.isStrike(birdsBorder, pencilBorder)) {
+        console.log('撞到水管了')
+        this.isGameOver = true
+        return
+      }
+    }
+    //
   }
 
   run() {
