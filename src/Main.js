@@ -2,6 +2,8 @@ import { DataStore } from './js/base/DataStore.js'
 import { ResourcesLoader } from './js/base/ResourcesLoader.js'
 import { Director } from './js/Director.js'
 import { Birds } from './js/player/Birds.js'
+import { Score } from './js/player/Score.js'
+import { StartButton } from './js/player/StartButton.js'
 import { Background } from './js/runtime/Background.js'
 import { Land } from './js/runtime/Land.js'
 export class Main {
@@ -29,6 +31,8 @@ export class Main {
       .put('background', Background)
       .put('land', Land)
       .put('birds', Birds)
+      .put('startButton', StartButton)
+      .put('score', Score)
     // 注册事件监听
     this.registerEvent()
 

@@ -40,15 +40,6 @@ export class Director {
 
     // 反逻辑， 在正常区域内默认未碰撞
     if (
-      // // 小鸟撞到上半部分水管的下半部分
-      // bird.top > pencil.bottom ||
-      // // 小鸟撞到下半部分水管的上半部分
-      // bird.bottom < pencil.top ||
-      // // 撞到水管的左侧
-      // bird.right > pencil.left ||
-      // // 撞到水管的右侧
-      // bird.left > pencil.right
-
       bird.top > pencil.bottom ||
       bird.bottom < pencil.top ||
       bird.left > pencil.right ||
@@ -64,6 +55,7 @@ export class Director {
     const birds = this.dataStore.get('birds')
     const land = this.dataStore.get('land')
     const pencils = this.dataStore.get('pencils')
+    const score = this.dataStore.get('score')
 
     // 撞到地板了
     if (birds.birdsY[0] + birds.birdsHeight[0] >= land.y) {
@@ -97,12 +89,18 @@ export class Director {
         return
       }
     }
-    //
+
+    // 加分逻辑
+    if (birds.birdsX[0] > pencils[0].x + pencils[0].width && score.isScore) {
+      score.isScore = false
+      score.scoreNumber++
+    }
   }
 
   run() {
     this.check()
     if (this.isGameOver) {
+      this.dataStore.get('startButton').draw()
       cancelAnimationFrame(this.dataStore.get('timer'))
       this.dataStore.destroy()
     } else {
@@ -113,6 +111,7 @@ export class Director {
       if (pencils[0].x + pencils[0].width <= 0 && pencils.length === 4) {
         pencils.shift()
         pencils.shift()
+        this.dataStore.get('score').isScore = true
       }
 
       // 创建第二组铅笔, 当一组铅笔的 x 坐标 小于 (屏幕-铅笔宽度) 的一半时
@@ -126,6 +125,8 @@ export class Director {
       this.dataStore.get('pencils').forEach((pencil) => pencil.draw())
       this.dataStore.get('land').draw()
       this.dataStore.get('birds').draw()
+      this.dataStore.get('score').draw()
+
       const timer = requestAnimationFrame(() => this.run())
       this.dataStore.put('timer', timer)
     }
