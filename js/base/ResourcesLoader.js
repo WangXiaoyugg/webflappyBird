@@ -5,7 +5,7 @@ export class ResourcesLoader {
   constructor() {
     this.resources = new Map(Resources)
     for (let [key, val] of this.resources) {
-      let image = new Image()
+      let image = wx.createImage()
       image.src = val
       this.resources.set(key, image)
     }

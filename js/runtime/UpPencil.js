@@ -1,5 +1,6 @@
 import { Sprite } from '../base/Sprite.js'
 import { Pencil } from './Pencil.js'
+import { DataStore } from '../base/DataStore.js'
 
 export class UpPencil extends Pencil {
   constructor(top) {

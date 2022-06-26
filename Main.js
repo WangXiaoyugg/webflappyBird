@@ -8,7 +8,7 @@ import { Background } from './js/runtime/Background.js'
 import { Land } from './js/runtime/Land.js'
 export class Main {
   constructor() {
-    this.canvas = document.querySelector('#game')
+    this.canvas = wx.createCanvas()
     this.ctx = this.canvas.getContext('2d')
     const loader = ResourcesLoader.create()
     this.dataStore = DataStore.getInstance()
@@ -17,6 +17,7 @@ export class Main {
   }
 
   onResourcesLoadedFirst(resources) {
+    this.dataStore.canvas = this.canvas;
     this.dataStore.ctx = this.ctx
     this.dataStore.resources = resources
     this.init()
@@ -41,8 +42,8 @@ export class Main {
   }
 
   registerEvent() {
-    this.canvas.addEventListener('touchstart', (e) => {
-      e.preventDefault()
+  
+    wx.onTouchStart((result) => {
       if (this.director.isGameOver) {
         console.log('重新开始！')
         this.init()

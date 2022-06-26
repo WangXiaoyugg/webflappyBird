@@ -18,8 +18,8 @@ export class Director {
 
   createPencil() {
     // 随机化高度在[minTop, maxTop]之间
-    let minTop = window.innerHeight / 8
-    let maxTop = window.innerHeight / 2
+    let minTop = DataStore.getInstance().canvas.height / 8
+    let maxTop = DataStore.getInstance().canvas.height / 2
     let top = minTop + Math.random() * (maxTop - minTop)
     this.dataStore.get('pencils').push(new UpPencil(top))
     this.dataStore.get('pencils').push(new DownPencil(top))
@@ -105,6 +105,7 @@ export class Director {
       this.dataStore.destroy()
     } else {
       this.dataStore.get('background').draw()
+      console.log(this.dataStore.get('background'))
       const pencils = this.dataStore.get('pencils')
 
       // 第一组铅笔移除屏幕左边界
@@ -116,7 +117,7 @@ export class Director {
 
       // 创建第二组铅笔, 当一组铅笔的 x 坐标 小于 (屏幕-铅笔宽度) 的一半时
       if (
-        pencils[0].x < (window.innerWidth - pencils[0].width) / 2 &&
+        pencils[0].x < (DataStore.getInstance().canvas.width - pencils[0].width) / 2 &&
         pencils.length === 2
       ) {
         this.createPencil()

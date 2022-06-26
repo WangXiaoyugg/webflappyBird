@@ -1,5 +1,5 @@
 import { Sprite } from '../base/Sprite.js'
-import { Director } from '../Director.js'
+import { DataStore } from '../base/DataStore.js'
 export class Pencil extends Sprite {
   constructor(img, top) {
     super(
@@ -8,16 +8,17 @@ export class Pencil extends Sprite {
       0,
       img.width,
       img.height,
-      window.innerWidth,
+      DataStore.getInstance().canvas.width,
       0,
       img.width,
       img.height
     )
     this.top = top
+    this.moveSpeed = 2
   }
 
   draw() {
-    this.x = this.x - Director.getInstance().moveSpeed
+    this.x = this.x - this.moveSpeed
     super.draw(
       this.img,
       0,

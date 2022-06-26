@@ -1,5 +1,5 @@
 import { Sprite } from '../base/Sprite.js'
-import { Director } from '../Director.js'
+import { DataStore } from '../base/DataStore.js'
 export class Land extends Sprite {
   constructor() {
     const img = Sprite.getImage('land')
@@ -10,18 +10,18 @@ export class Land extends Sprite {
       img.width,
       img.height,
       0,
-      window.innerHeight - img.height,
+      DataStore.getInstance().canvas.height - img.height,
       img.width,
       img.height
     )
     this.landX = 0
-    this.landSpeed = Director.getInstance().moveSpeed
+    this.landSpeed = 2
   }
 
   draw() {
     this.landX = this.landX + this.landSpeed
 
-    if (this.landX > this.img.width - window.innerWidth) {
+    if (this.landX > this.img.width - DataStore.getInstance().canvas.width) {
       this.landX = 0
     }
     super.draw(
