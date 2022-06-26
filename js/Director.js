@@ -94,6 +94,11 @@ export class Director {
     if (birds.birdsX[0] > pencils[0].x + pencils[0].width && score.isScore) {
       score.isScore = false
       score.scoreNumber++
+      wx.vibrateLong({
+        success: () => {
+          console.log('振动成功')
+        }
+      })
     }
   }
 
@@ -103,9 +108,10 @@ export class Director {
       this.dataStore.get('startButton').draw()
       cancelAnimationFrame(this.dataStore.get('timer'))
       this.dataStore.destroy()
+      // 游戏结束后垃圾回收
+      wx.triggerGC()
     } else {
       this.dataStore.get('background').draw()
-      console.log(this.dataStore.get('background'))
       const pencils = this.dataStore.get('pencils')
 
       // 第一组铅笔移除屏幕左边界

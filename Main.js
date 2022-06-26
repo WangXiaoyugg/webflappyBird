@@ -1,3 +1,7 @@
+/**
+ * 处理全局性和游戏一次性的逻辑
+ */
+
 import { DataStore } from './js/base/DataStore.js'
 import { ResourcesLoader } from './js/base/ResourcesLoader.js'
 import { Director } from './js/Director.js'
@@ -20,6 +24,7 @@ export class Main {
     this.dataStore.canvas = this.canvas;
     this.dataStore.ctx = this.ctx
     this.dataStore.resources = resources
+    this.createBackgroundMusic()
     this.init()
   }
 
@@ -39,6 +44,13 @@ export class Main {
 
     this.director.createPencil()
     this.director.run()
+  }
+
+  // 创建背景音乐
+  createBackgroundMusic() {
+    const bgm = wx.createInnerAudioContext()
+    bgm.src = '/audio/bgm.mp3'
+    bgm.play();
   }
 
   registerEvent() {
